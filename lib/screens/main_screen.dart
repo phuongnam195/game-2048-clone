@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/about_screen.dart';
 import 'score_screen.dart';
-import './gameplay_screen.dart';
+import 'play_screen.dart';
 import '../widgets/main_button.dart';
 import '../data.dart';
 
@@ -35,58 +35,58 @@ class _MainScreenState extends State<MainScreen> {
               decoration: TextDecoration.none,
             ),
           ),
-          Container(
-            width: 220,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: Icon(
-                    Icons.chevron_left,
-                    color: currentBoard > 0
-                        ? Colors.white.withOpacity(0.4)
-                        : Colors.transparent,
-                    size: 36,
-                  ),
-                  onTap: () {
-                    if (currentBoard > 0)
-                      setState(() {
-                        currentBoard--;
-                      });
-                  },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                child: Icon(
+                  Icons.chevron_left,
+                  color: currentBoard > 0
+                      ? Colors.white.withOpacity(0.4)
+                      : Colors.transparent,
+                  size: 36,
                 ),
-                Text(
-                  boards[currentBoard].title +
-                      ' (${boards[currentBoard].size}×${boards[currentBoard].size})',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
-                    fontFamily: 'Manrope',
-                    fontSize: 23,
-                    fontWeight: FontWeight.w400,
-                    decoration: TextDecoration.none,
-                  ),
+                onTap: () {
+                  if (currentBoard > 0)
+                    setState(() {
+                      currentBoard--;
+                    });
+                },
+              ),
+              Text(
+                boards[currentBoard].title +
+                    ' (${boards[currentBoard].size}×${boards[currentBoard].size})',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontFamily: 'Manrope',
+                  fontSize: 23,
+                  fontWeight: FontWeight.w400,
+                  decoration: TextDecoration.none,
                 ),
-                GestureDetector(
-                  child: Icon(
-                    Icons.chevron_right,
-                    color: currentBoard < boards.length - 1
-                        ? Colors.white.withOpacity(0.4)
-                        : Colors.transparent,
-                    size: 36,
-                  ),
-                  onTap: () {
-                    if (currentBoard < boards.length - 1)
-                      setState(() {
-                        currentBoard++;
-                      });
-                  },
+              ),
+              GestureDetector(
+                child: Icon(
+                  Icons.chevron_right,
+                  color: currentBoard < boards.length - 1
+                      ? Colors.white.withOpacity(0.4)
+                      : Colors.transparent,
+                  size: 36,
                 ),
-              ],
-            ),
+                onTap: () {
+                  if (currentBoard < boards.length - 1)
+                    setState(() {
+                      currentBoard++;
+                    });
+                },
+              ),
+            ],
           ),
           SizedBox(height: 30),
           MainButton('PLAY', () {
-            Navigator.of(context).pushNamed(GameplayScreen.routeName);
+            Navigator.of(context).pushNamed(PlayScreen.routeName).then((value) {
+              // widget.storage
+              //     .writeData(boards.map((board) => board.toString()).toList());
+            });
           }),
           SizedBox(height: 15),
           MainButton('SCORE', () {

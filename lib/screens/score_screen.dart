@@ -16,8 +16,8 @@ class ScoreScreen extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+          child: Container(
+            width: MediaQuery.of(context).size.height / 2,
             child: GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -30,12 +30,12 @@ class ScoreScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: Colors.black26),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text(
+                      child: FittedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(height: 2),
+                            Text(
                               'Help center',
                               style: TextStyle(
                                 color: Colors.transparent,
@@ -45,11 +45,9 @@ class ScoreScreen extends StatelessWidget {
                                 decoration: TextDecoration.none,
                               ),
                             ),
-                          ),
-                          FittedBox(
-                            child: Padding(
+                            Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               child: Text('${boards[index].highScore}',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -59,10 +57,7 @@ class ScoreScreen extends StatelessWidget {
                                     decoration: TextDecoration.none,
                                   )),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
+                            Text(
                               boards[index].title +
                                   ' (${boards[index].size}×${boards[index].size})',
                               style: TextStyle(
@@ -73,8 +68,9 @@ class ScoreScreen extends StatelessWidget {
                                 decoration: TextDecoration.none,
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 2),
+                          ],
+                        ),
                       ));
                 }),
           ),

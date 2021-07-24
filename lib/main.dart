@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 
 import './screens/about_screen.dart';
 import './screens/score_screen.dart';
-import './screens/gameplay_screen.dart';
+import 'screens/play_screen.dart';
 import './screens/main_screen.dart';
+import 'data.dart';
+import 'models/storage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,32 +22,23 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Storage.readData().then((List<String> lines) {
+      for (int i = 0; i < lines.length; i++) {
+        boards[i].setDataFromBuffer(lines[i]);
+      }
+    });
+
     return MaterialApp(
       title: '2048',
       theme: ThemeData(
         fontFamily: 'Manrope',
       ),
-      // initialRoute: '/gameplay',
       routes: {
         '/': (ctx) => MainScreen(),
-        GameplayScreen.routeName: (ctx) => GameplayScreen(),
+        PlayScreen.routeName: (ctx) => PlayScreen(),
         ScoreScreen.routeName: (ctx) => ScoreScreen(),
         AboutScreen.routeName: (ctx) => AboutScreen(),
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: MainScreen(),
     );
   }
 }

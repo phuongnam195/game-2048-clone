@@ -1,17 +1,17 @@
 import 'dart:math';
 
 class Board {
-  final String title;
   final int size;
+  final String title;
   late List<List<int>> matrix;
   int currentScore = 0;
   int highScore = 0;
   bool isOver = false;
 
   late List<List<int>> _oldMatrix;
-  bool _canRollback = true;
-  late int _oldCurrentScore;
-  late int _oldHighScore;
+  bool _canRollback = false;
+  int _oldCurrentScore = 0;
+  int _oldHighScore = 0;
   var _rng = new Random();
 
   Board(this.size, this.title) {
@@ -23,6 +23,53 @@ class Board {
     int i = _rng.nextInt(this.size);
     int j = _rng.nextInt(this.size);
     matrix[i][j] = 2;
+  }
+
+  void setDataFromBuffer(String buffer) {
+    var tokens = buffer.split(' | ');
+
+    var matrixTokens = tokens[0].split(' ');
+    for (int i = 0; i < size; i++)
+      for (int j = 0; j < size; j++)
+        matrix[i][j] = int.parse(matrixTokens[i * size + j]);
+
+    var scoreTokens = tokens[1].split(' ');
+    currentScore = int.parse(scoreTokens[0]);
+    highScore = int.parse(scoreTokens[1]);
+
+    isOver = (tokens[2] == 'true');
+
+    matrixTokens = tokens[3].split(' ');
+    for (int i = 0; i < size; i++)
+      for (int j = 0; j < size; j++)
+        _oldMatrix[i][j] = int.parse(matrixTokens[i * size + j]);
+
+    _canRollback = (tokens[4] == 'true');
+
+    scoreTokens = tokens[5].split(' ');
+    _oldCurrentScore = int.parse(scoreTokens[0]);
+    _oldHighScore = int.parse(scoreTokens[1]);
+  }
+
+  String toString() {
+    String str = '';
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        str += '${matrix[i][j]} ';
+      }
+    }
+
+    str += '| $currentScore $highScore | $isOver | ';
+
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        str += '${_oldMatrix[i][j]} ';
+      }
+    }
+
+    str += '| $_canRollback | $_oldCurrentScore $_oldHighScore';
+
+    return str;
   }
 
   int valueAt(int i) {
@@ -52,6 +99,7 @@ class Board {
         else
           matrix[row][col] = 0;
     isOver = false;
+    _canRollback = false;
   }
 
   void _addCell() {
