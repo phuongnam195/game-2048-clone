@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
-import '../models/storage.dart';
 import '../widgets/game_button.dart';
 import '../data.dart';
 
@@ -41,7 +41,7 @@ class _State extends State<PlayScreen> {
       });
     }
 
-    Storage.writeData(boards.map((board) => board.toString()).toList());
+    repo.writeData(boards.map((board) => board.toString()).toList());
   }
 
   Widget scoreDisplay(String title, int score) {
@@ -87,21 +87,24 @@ class _State extends State<PlayScreen> {
     return Stack(
       children: [
         RawKeyboardListener(
+          autofocus: true,
           focusNode: FocusNode(),
           onKey: (RawKeyEvent event) {
-            if (event.runtimeType.toString() != 'RawKeyDownEvent') return;
-            var keyLabel = event.data.logicalKey.keyLabel;
-            if (keyLabel == 'Arrow Up' || keyLabel == 'W') {
-              handleMovement('up');
-            } else if (keyLabel == 'Arrow Down' || keyLabel == 'S') {
-              handleMovement('down');
-            } else if (keyLabel == 'Arrow Left' || keyLabel == 'A') {
-              handleMovement('left');
-            } else if (keyLabel == 'Arrow Right' || keyLabel == 'D') {
-              handleMovement('right');
+            if (event is RawKeyDownEvent) {
+              if (event.isKeyPressed(LogicalKeyboardKey.arrowUp) ||
+                  event.isKeyPressed(LogicalKeyboardKey.keyW))
+                handleMovement('up');
+              else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown) ||
+                  event.isKeyPressed(LogicalKeyboardKey.keyS))
+                handleMovement('down');
+              else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft) ||
+                  event.isKeyPressed(LogicalKeyboardKey.keyA))
+                handleMovement('left');
+              else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) ||
+                  event.isKeyPressed(LogicalKeyboardKey.keyD))
+                handleMovement('right');
             }
           },
-          autofocus: true,
           child: Container(
             width: double.infinity,
             height: double.infinity,

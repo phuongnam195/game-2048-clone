@@ -6,7 +6,6 @@ import './screens/score_screen.dart';
 import 'screens/play_screen.dart';
 import './screens/main_screen.dart';
 import 'data.dart';
-import 'models/storage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +21,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Storage.readData().then((List<String> lines) {
+    repo.readData().then((List<String> lines) {
       for (int i = 0; i < lines.length; i++) {
         boards[i].setDataFromBuffer(lines[i]);
       }

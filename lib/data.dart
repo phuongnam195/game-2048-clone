@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_2048/models/storage.dart';
 
 import './models/board.dart';
 
@@ -64,3 +65,8 @@ List<Board> boards = [
   Board(7, 'Huge'),
   Board(8, 'Huger'),
 ];
+
+Repository repo = new Repository();
+
+const apkUrl =
+    'https://github.com/antoneus195/2048-clone/raw/main/android/2048_clone.apk';

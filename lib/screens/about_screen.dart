@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../data.dart';
 
@@ -11,6 +13,10 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutScreenState extends State<AboutScreen> {
   int _avaIdx = 0;
+
+  void _launchURL() async => await canLaunch(apkUrl)
+      ? await launch(apkUrl)
+      : throw 'Could not launch $apkUrl';
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +63,11 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      'Cloned by Phuong Nam\nVersion: 1.2',
+                      'Cloned by Phuong Nam\nVersion: 1.3.0',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Manrope',
-                          // fontSize: 20,
                           fontWeight: FontWeight.w300,
                           decoration: TextDecoration.none),
                     ),
@@ -70,6 +75,20 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 10),
+            if (kIsWeb)
+              TextButton.icon(
+                onPressed: _launchURL,
+                icon: Icon(
+                  Icons.android,
+                  color: Color(0xff94c600),
+                  size: 28,
+                ),
+                label: Text(
+                  'For Android (.apk)',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              )
           ],
         ));
   }

@@ -1,32 +1,21 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:universal_html/html.dart';
 
-class Storage {
-  static Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
+class Repository {
+  final Storage _localStorage = window.localStorage;
 
-    return directory.path;
-  }
-
-  static Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/2048_boards.txt');
-  }
-
-  static Future<List<String>> readData() async {
+  Future<List<String>> readData() async {
     try {
-      final file = await _localFile;
-      final content = await file.readAsLines();
-      return content;
+      String? content = _localStorage['2048_boards'];
+      if (content == null) return [];
+      List<String> lines = content.split('\n');
+      return lines;
     } catch (e) {
       return [];
     }
   }
 
-  static Future<File> writeData(List<String> lines) async {
-    final file = await _localFile;
+  Future writeData(List<String> lines) async {
     String content = lines.join('\n');
-    return file.writeAsString(content);
+    _localStorage['2048_boards'] = content;
   }
 }
