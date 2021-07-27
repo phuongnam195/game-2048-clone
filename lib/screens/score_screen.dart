@@ -30,47 +30,58 @@ class ScoreScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: Colors.black26),
-                      child: FittedBox(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(height: 2),
-                            Text(
-                              'Help center',
-                              style: TextStyle(
-                                color: Colors.transparent,
-                                fontFamily: 'Manrope',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.none,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: FittedBox(
+                              child: Text(
+                                'Help center',
+                                style: TextStyle(
+                                  color: Colors.transparent,
+                                  fontFamily: 'Manrope',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
                             ),
-                            Padding(
+                          ),
+                          Flexible(
+                            flex: 3,
+                            child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text('${boards[index].highScore}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Manrope',
-                                    fontSize: 80,
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.none,
-                                  )),
-                            ),
-                            Text(
-                              boards[index].title +
-                                  ' (${boards[index].size}×${boards[index].size})',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontFamily: 'Manrope',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.none,
+                              child: FittedBox(
+                                child: Text('${boards[index].highScore}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Manrope',
+                                      fontSize: 80,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.none,
+                                    )),
                               ),
                             ),
-                            SizedBox(height: 2),
-                          ],
-                        ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: FittedBox(
+                              child: Text(
+                                boards[index].title +
+                                    ' (${boards[index].size}×${boards[index].size})',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontFamily: 'Manrope',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ));
                 }),
           ),

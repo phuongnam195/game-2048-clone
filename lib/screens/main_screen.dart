@@ -83,10 +83,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SizedBox(height: 30),
           MainButton('PLAY', () {
-            Navigator.of(context).pushNamed(PlayScreen.routeName).then((value) {
-              // widget.storage
-              //     .writeData(boards.map((board) => board.toString()).toList());
-            });
+            Navigator.of(context).pushNamed(PlayScreen.routeName);
           }),
           SizedBox(height: 15),
           MainButton('SCORE', () {

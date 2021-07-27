@@ -57,12 +57,11 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      'Cloned by Phuong Nam\nVersion: 1.2',
+                      'Cloned by Phuong Nam\nVersion: 1.3.0',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Manrope',
-                          // fontSize: 20,
                           fontWeight: FontWeight.w300,
                           decoration: TextDecoration.none),
                     ),
@@ -70,6 +69,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 10),
           ],
         ));
   }
